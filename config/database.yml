@@ -1,23 +1,27 @@
 default: &default
-  adapter: postgresql
+  # adapter: postgresql
+  adapter: sqlite3
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 50 } %>
 
-default_credentials: &default_credentials
-  username: golinks
-  password: golinks
-  host: localhost
+# default_credentials: &default_credentials
+#   username: golinks
+#   password: golinks
+#   host: localhost
 
 development:
   <<: *default
-  <<: *default_credentials
-  database: golinks_development
+  # <<: *default_credentials
+  # database: golinks_development
+  database: db/development.sqlite3
 
 test:
   <<: *default
-  <<: *default_credentials
-  database: golinks_test
+  # <<: *default_credentials
+  # database: golinks_test
+  database: db/test.sqlite3
 
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  # url: <%= ENV['DATABASE_URL'] %>
+  database: db/production.sqlite3
