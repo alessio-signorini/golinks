@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 50 } %>
+
+default_credentials: &default_credentials
+  username: golinks
+  password: golinks
+  host: localhost
+
+development:
+  <<: *default
+  <<: *default_credentials
+  database: golinks_development
+
+test:
+  <<: *default
+  <<: *default_credentials
+  database: golinks_test
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
