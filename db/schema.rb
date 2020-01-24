@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_24_070348) do
+ActiveRecord::Schema.define(version: 2020_01_24_075135) do
 
   create_table "clients", force: :cascade do |t|
     t.string "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2020_01_24_070348) do
     t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["address"], name: "index_network_addresses_on_address"
     t.index ["client_id", "address"], name: "index_network_addresses_on_client_id_and_address"
     t.index ["client_id"], name: "index_network_addresses_on_client_id"
   end
