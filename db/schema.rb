@@ -10,32 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_24_060855) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 2020_01_24_070348) do
 
   create_table "clients", force: :cascade do |t|
     t.string "name"
     t.string "hostname"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["hostname"], name: "index_clients_on_hostname"
   end
 
   create_table "network_addresses", force: :cascade do |t|
-    t.bigint "client_id", null: false
+    t.integer "client_id", null: false
     t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id", "address"], name: "index_network_addresses_on_client_id_and_address"
     t.index ["client_id"], name: "index_network_addresses_on_client_id"
   end
 
   create_table "redirects", force: :cascade do |t|
-    t.bigint "client_id", null: false
+    t.integer "client_id", null: false
     t.string "path"
     t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id", "path"], name: "index_redirects_on_client_id_and_path"
     t.index ["client_id"], name: "index_redirects_on_client_id"
   end
 
