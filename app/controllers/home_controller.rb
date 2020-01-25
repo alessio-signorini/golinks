@@ -2,7 +2,7 @@ class HomeController < ActionController::Base
 
   def index
     address = NetworkAddress.find_by(:address => request.remote_addr)
-      render :status => :not_found unless address
+      head :not_found and return unless address
 
     @location     = address.location
     @organization = @location.organization
