@@ -10,36 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_24_075135) do
+ActiveRecord::Schema.define(version: 2020_01_24_170856) do
 
-  create_table "clients", force: :cascade do |t|
-    t.string "name"
-    t.string "hostname"
+  create_table "links", force: :cascade do |t|
+    t.string "owner_type", null: false
+    t.integer "owner_id", null: false
+    t.string "description"
+    t.string "path", null: false
+    t.string "url", null: false
+    t.string "category"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["hostname"], name: "index_clients_on_hostname"
+    t.index "\"owner\", \"path\"", name: "index_links_on_owner_and_path"
+    t.index ["owner_type", "owner_id"], name: "index_links_on_owner_type_and_owner_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.integer "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_locations_on_organization_id"
   end
 
   create_table "network_addresses", force: :cascade do |t|
-    t.integer "client_id", null: false
-    t.string "address"
+    t.integer "location_id", null: false
+    t.string "name"
+    t.string "address", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["address"], name: "index_network_addresses_on_address"
-    t.index ["client_id", "address"], name: "index_network_addresses_on_client_id_and_address"
-    t.index ["client_id"], name: "index_network_addresses_on_client_id"
+    t.index ["location_id"], name: "index_network_addresses_on_location_id"
   end
 
-  create_table "redirects", force: :cascade do |t|
-    t.integer "client_id", null: false
-    t.string "path"
-    t.string "url"
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "logo_url"
+    t.text "css"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id", "path"], name: "index_redirects_on_client_id_and_path"
-    t.index ["client_id"], name: "index_redirects_on_client_id"
   end
 
-  add_foreign_key "network_addresses", "clients"
-  add_foreign_key "redirects", "clients"
+  add_foreign_key "locations", "organizations"
+  add_foreign_key "network_addresses", "locations"
 end
