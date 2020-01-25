@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= @organization.name %> Links</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  </head>
+  <body>
+    <style>
+      <%= @organization.css %>
+    </style>
+
+    <section class='section' id='organization'>
+      <% if @organization.logo_url %>
+        <img src='<%= @organization.logo_url %>' id='organization_logo'>
+      <% else %>
+        <h1 class='title' id='organization_name'><%= @organization.name %></h1>
+      <% end %>
+    </section>
+
+    <% @links.group_by{|x| x.category}.each do |category_name, links| %>
+      <section class="section">
+        <div class="container">
+          <h1 class="title category_name"><%= category_name.humanize %></h1>
+          <ul>
+            <% links.each do |link| %>
+              <li class='link'>
+                <span class='path'>
+                  <a href='//<%= request.host_with_port%>/<%= link.path %>' target='_blank'>
+                    <b><%= request.host_with_port%>/<%= link.path %></b>
+                  </a>
+                </span>
+                <span class='empty_space'>&nbsp; &nbsp;</span>
+                <span class='description'><%= link.description %></span>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </section>
+    <% end %>
+  </body>
+</html>
