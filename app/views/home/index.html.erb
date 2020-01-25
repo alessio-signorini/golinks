@@ -20,12 +20,12 @@
       <% end %>
     </section>
 
-    <% @links.group_by{|x| x.category}.each do |category_name, links| %>
+    <% @categories.each do |category_name| %>
       <section class="section">
         <div class="container">
           <h1 class="title category_name"><%= category_name.humanize %></h1>
           <ul>
-            <% links.each do |link| %>
+            <% @links.select{|x| x.category == category_name}.sort.each do |link| %>
               <li class='link'>
                 <span class='path'>
                   <a href='//<%= request.host_with_port%>/<%= link.path %>' target='_blank'>

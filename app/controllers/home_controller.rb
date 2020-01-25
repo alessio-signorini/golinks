@@ -7,6 +7,7 @@ class HomeController < ActionController::Base
     @location     = address.location
     @organization = @location.organization
     @links        = @location.links
+    @categories   = @links.pluck(:category).uniq.sort
 
     render :index
   end
