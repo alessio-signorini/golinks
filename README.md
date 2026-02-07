@@ -1,7 +1,5 @@
 # 🔎 Private Golinks Server
-Simple implementation of Golinks server for private use. Supports multiple
-domains and can restrict access to selected IP addresses. At the moment it
-has no UI nor stats tracking.
+Simple implementation of Golinks server for private use. Supports multiple domains and can restrict access to selected IP addresses. At the moment it has no UI nor stats tracking.
 
 ### Requirements
 * Ruby v2.6.3
